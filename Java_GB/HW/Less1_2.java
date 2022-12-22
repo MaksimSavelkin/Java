@@ -1,5 +1,5 @@
 // Вывести все простые числа от 1 до 1000
-package gb.Java.HW;
+package gb.Java_GB.HW;
 
 import java.util.Scanner;
 import java.util.ArrayList;

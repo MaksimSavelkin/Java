@@ -1,12 +1,18 @@
-// Реализовать простой калькулятор
-package gb.Java_GB.HW;
-
+// К калькулятору из предыдущего дз добавить логирование
+package gb.Java_GB.HW.Seminar_2;
 import java.util.Scanner;
-
-public class Less1_3 {
+import java.util.logging.*;
+public class Less2_3 {
     static Scanner scanner = new Scanner(System.in);
+    static Logger logger = Logger.getLogger(Less2_3.class.getName());
+    // static FileHandler fh = new FileHandler("log.txt");
+    static ConsoleHandler fh = new ConsoleHandler();
+    static SimpleFormatter sFormatter = new SimpleFormatter();
+
+
 
     public static void main(String[] args) {
+
         int num1 = getInt();
         int num2 = getInt();
         char operation = getOperation();
@@ -15,12 +21,16 @@ public class Less1_3 {
     }
 
     public static int getInt() {
+        logger.addHandler(fh);
+        fh.setFormatter(sFormatter);
         System.out.println("Введите число:");
         int num;
         if (scanner.hasNextInt()) {
             num = scanner.nextInt();
+            logger.log(Level.INFO, "Get number");
         } else {
             System.out.println("Вы допустили ошибку при вводе числа. Попробуйте еще раз.");
+            logger.log(Level.INFO, "Error");
             scanner.next();// рекурсия
             num = getInt();
         }
@@ -28,12 +38,16 @@ public class Less1_3 {
     }
 
     public static char getOperation() {
+        logger.addHandler(fh);
+        fh.setFormatter(sFormatter);
         System.out.println("Введите операцию:");
         char operation;
         if (scanner.hasNext()) {
             operation = scanner.next().charAt(0);
+            logger.log(Level.INFO, "Get char");
         } else {
             System.out.println("Вы допустили ошибку при вводе операции. Попробуйте еще раз.");
+            logger.log(Level.INFO, "Error");
             scanner.next();// рекурсия
             operation = getOperation();
         }
@@ -41,6 +55,8 @@ public class Less1_3 {
     }
 
     public static int calc(int num1, int num2, char operation) {
+        logger.addHandler(fh);
+        fh.setFormatter(sFormatter);
         int result;
         switch (operation) {
             case '+':
@@ -57,8 +73,10 @@ public class Less1_3 {
                 break;
             default:
                 System.out.println("Операция не распознана. Повторите ввод.");
+                logger.log(Level.INFO, "Error");
                 result = calc(num1, num2, getOperation());// рекурсия
         }
+        logger.log(Level.INFO, "Find result");
         return result;
     }
     
